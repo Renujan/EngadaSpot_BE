@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import (
     # Products
     product_list, product_create, product_detail,
@@ -52,4 +54,4 @@ urlpatterns = [
     # Business Info
     path('business-info/', business_info_get, name='business_info_get'),
     path('business-info/update/', business_info_update, name='business_info_update'),
-]
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
