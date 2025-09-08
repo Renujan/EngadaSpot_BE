@@ -55,7 +55,7 @@ from .serializers import (
 )
 
 # ------------------------- PRODUCTS -------------------------
-@api_view(['GET'])
+@api_view(['GET'])#vieww
 @permission_classes([IsAuthenticated])
 def product_list(request):
     serializer = ProductSerializer(Product.objects.all(), many=True)
