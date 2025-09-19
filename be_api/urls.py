@@ -11,7 +11,7 @@ from .views import (
     # Employee Consumption
     consumption_list, consumption_create, consumption_detail, consumption_update, consumption_delete,
     # Business Info
-    business_info_get, business_info_update,
+    business_info_get, business_info_update,low_stock_alert,
     # Auth
     CustomTokenObtainPairView,LoginView
 )
@@ -54,4 +54,7 @@ urlpatterns = [
     # Business Info
     path('business-info/', business_info_get, name='business_info_get'),
     path('business-info/update/', business_info_update, name='business_info_update'),
+    
+    path('stocks/low-stock-alert/', low_stock_alert, name='low_stock_alert'),
+    
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

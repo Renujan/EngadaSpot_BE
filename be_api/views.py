@@ -422,3 +422,25 @@ def daily_stock_update(request, stock_id):
         return Response(serializer.data)
     
     return Response({"error": "added_stock field is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def low_stock_alert(request):
+    """
+    Returns all products with current stock, low stock threshold,
+    and status ('in_stock' or 'low_stock').
+    """
+    stocks = DailyStock.objects.all()
+    data = []
+    for stock in stocks:
+        remaining = stock.remaining_stock  # starting + added - sold
+        status = 'low_stock' if remaining <= stock.low_stock_threshold else 'in_stock'
+        data.append({
+            'product_name': stock.product.name,
+            'current_stock': remaining,
+            'low_stock_threshold': stock.low_stock_threshold,
+            'status': status
+        })
+    return Response(data)
